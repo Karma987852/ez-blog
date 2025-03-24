@@ -1,12 +1,13 @@
 <?php
-require_once 'config/database.php';
+$request_uri = trim($_SERVER['REQUEST_URI'], '/');
 
-echo "✅ Database connected successfully!";
+$page = $request_uri === '' ? 'home' : $request_uri;
 
-$query = $pdo->query("SHOW TABLES");
-$tables = $query->fetchAll();
+$allowed_pages = ['login', 'register', 'dashboard'];
 
-echo "<pre>";
-print_r($tables);
-echo "</pre>";
+if (in_array($page, $allowed_pages) && file_exists("./src/views/{$page}.php")) {
+    require "./src/views/{$page}.php";
+} else {
+    require "./src/views/home.php";
+}
 ?>
