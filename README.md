@@ -37,7 +37,16 @@ In Ubuntu, Run the mysql server in the docker
  docker run --name mysql_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=blog_sphere -e MYSQL_USER=blog_user -e MYSQL_PASSWORD=password -p 3306:3306 -v mysql_data:/var/lib/mysql -d mysql:latest 
  ```
 
-### 3. Run the Application
+### 3. Apply Schema Migrations
+
+To create tables in the database, run:
+```sh
+mysql -u root -p blog_sphere < database/01_create_users_table.sql
+```
+
+You will be prompted to enter the MySQL root password.
+
+### 4. Run the Application
 #### Using PHP Built-in Server:
 ```sh
 php -S localhost:8000
