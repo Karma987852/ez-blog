@@ -1,24 +1,32 @@
 <?php
-require './config/database.php';  // Include database.php
+require './config/database.php';
 
-// Check if $conn is initialized
 if (!$conn) {
     die("❌ Database connection failed: Connection is null.");
 }
 
-// Fetch all blog posts from the database
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
-        $stmt = $conn->prepare("SELECT * FROM blog_posts ORDER BY created_at DESC");
+        $stmt = $conn->prepare("
+            SELECT 
+                blog_posts.id, 
+                blog_posts.title, 
+                blog_posts.content, 
+                blog_posts.created_at, 
+                COALESCE(users.fullname, 'Unknown Author') AS author, 
+                COALESCE(categories.name, 'Uncategorized') AS category
+            FROM blog_posts
+            LEFT JOIN users ON blog_posts.user_id = users.id
+            LEFT JOIN categories ON blog_posts.category_id = categories.id
+            ORDER BY blog_posts.created_at DESC
+        ");
         $stmt->execute();
-        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch all posts as an associative array
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        // Handle database errors gracefully
-        $posts = []; // Set posts to an empty array in case of an error
+        $posts = [];
         error_log("Database error: " . $e->getMessage());
     }
 }
 
-// Include the View file
 include './views/home.php';
 ?>
