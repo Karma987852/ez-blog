@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlogSphere</title>
-    <link rel="stylesheet" href="public/assets/css/header.css"> 
-</head>
-<body>
 <header>
-    <nav class="navbar">
-        <!-- Logo Section -->
-        <div class="logo">
-            <a href="index.php">
-                <img src="public/assets/img/logo.png" alt="BlogSphere Logo">
+    <div class="header-container">
+        <div class="logo">Medium</div>
+        <div class="search-container">
+            <form action="" method="GET">
+                <div class="search-box">
+                    <img src="search-icon.svg" alt="Search" class="search-icon">
+                    <input type="text" name="q" value="c" placeholder="Search Medium">
+                </div>
+            </form>
+        </div>
+        <div class="header-actions">
+            <a href="#" class="write-btn">
+                <img src="write-icon.svg" alt="Write" class="write-icon">
+                Write
+            </a>
+            <a href="#" class="notification-btn">
+                <img src="notification-icon.svg" alt="Notifications" class="notification-icon">
             </a>
         </div>
-
-        <!-- Search Bar Section -->
-        <div class="search-bar">
-            <input type="text" placeholder="Search..." id="search">
-            <button type="submit">🔍</button>
-        </div>
-
-        <!-- Login Button Section -->
-        <div class="login">
-            <a href="login.php" class="btn">Login</a>
-        </div>
-    </nav>
+    </div>
 </header>

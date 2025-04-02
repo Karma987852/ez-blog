@@ -1,88 +1,112 @@
-<?php 
-include './src/controllers/get-posts.php';
-include './templates/header.php'; 
-?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medium</title>
+    <link rel="stylesheet" href="../../public/assets/css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <?php include 'header.php'; ?>
+    <main>
+        <div class="container">
+            <div class="content">
+                <h1 class="results-heading">Results for c</h1>
+                <i class="fa-solid fa-house"></i>
+                
+                <div class="tabs">
+                    <a href="#" class="tab active">Stories</a>
+                    <a href="#" class="tab">People</a>
+                    <a href="#" class="tab">Publications</a>
+                    <a href="#" class="tab">Topics</a>
+                    <a href="#" class="tab">Lists</a>
+                </div>
+                
+                <div class="search-results">
+                    <?php
+                    // Sample data for search results
+                    $articles = [
+                        [
+                            'project' => 'In The Sunhead Project',
+                            'author' => 'N\'Delamiko Bey',
+                            'title' => 'Captureland: A Measured Meditation',
+                            'excerpt' => '"Carry we go home, Carry we go home. And bring we gone a east. Cause man a rasta man. And rasta nuh live pon no capture land."...',
+                            'date' => 'Jan 11, 2030',
+                            'claps' => '1.6K',
+                            'comments' => '34',
+                            'image' => 'captureland.jpg'
+                        ],
+                        [
+                            'author' => 'Dylan Combellick',
+                            'title' => 'Ukraine Update April 1',
+                            'excerpt' => '2025—No Fools',
+                            'date' => '23h ago',
+                            'claps' => '3.5K',
+                            'comments' => '17',
+                            'image' => 'ukraine.jpg',
+                            'featured' => true
+                        ]
+                    ];
 
-<style>
-    .blog-posts {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px 0;
-    }
-
-    .blog-post {
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        padding: 20px;
-    }
-
-    .blog-post:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    }
-
-    .post-title {
-        font-size: 1.5rem;
-        color: #0C68F4;
-        margin-bottom: 10px;
-    }
-
-    .post-meta {
-        font-size: 0.9rem;
-        color: #555;
-        margin-bottom: 10px;
-    }
-
-    .post-content {
-        font-size: 1rem;
-        color: #333;
-        line-height: 1.5;
-        margin-bottom: 15px;
-    }
-
-    .read-more {
-        display: inline-block;
-        text-decoration: none;
-        color: white;
-        background-color: #F45E0C;
-        padding: 8px 15px;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background 0.3s;
-    }
-
-    .read-more:hover {
-        background-color: #d04e0b;
-    }
-</style>
-
-<main>
-    <div class="container">
-        <h1>All Blog Posts</h1>
-
-        <?php if (!empty($posts)): ?>
-            <div class="blog-posts">
-                <?php foreach ($posts as $post): ?>
-                    <div class="blog-post">
-                        <h2 class="post-title"><?php echo htmlspecialchars($post['title']); ?></h2>
-                        <p class="post-meta">
-                            By <strong><?php echo htmlspecialchars($post['author']); ?></strong> |
-                            Posted on <?php echo date('F j, Y', strtotime($post['created_at'])); ?> | 
-                            Category: <?php echo htmlspecialchars($post['category']); ?>
-                        </p>
-                        <p class="post-content"><?php echo nl2br(htmlspecialchars(substr($post['content'], 0, 200))); ?>...</p>
-                        <a href="single-post.php?id=<?php echo $post['id']; ?>" class="read-more">Read More</a>
-                    </div>
-                <?php endforeach; ?>
+                    foreach ($articles as $article) {
+                        echo '<div class="article">';
+                        
+                        echo '<div class="article-content">';
+                        
+                        if (isset($article['project'])) {
+                            echo '<div class="article-project">';
+                            echo '<img src="project-icon.svg" alt="Project" class="project-icon">';
+                            echo '<span>' . $article['project'] . ' by ' . $article['author'] . '</span>';
+                            echo '</div>';
+                        } else {
+                            echo '<div class="article-author">';
+                            echo '<img src="author-avatar.jpg" alt="Author" class="author-avatar">';
+                            echo '<span>' . $article['author'] . '</span>';
+                            echo '</div>';
+                        }
+                        
+                        echo '<h2 class="article-title">' . $article['title'] . '</h2>';
+                        echo '<p class="article-excerpt">' . $article['excerpt'] . '</p>';
+                        
+                        echo '<div class="article-meta">';
+                        
+                        if (isset($article['featured']) && $article['featured']) {
+                            echo '<span class="featured-indicator">★</span>';
+                        }
+                        
+                        echo '<span class="article-date">' . $article['date'] . '</span>';
+                        
+                        echo '<span class="article-stats">';
+                        echo '<img src="clap-icon.svg" alt="Claps" class="clap-icon">';
+                        echo '<span>' . $article['claps'] . '</span>';
+                        echo '</span>';
+                        
+                        echo '<span class="article-stats">';
+                        echo '<img src="comment-icon.svg" alt="Comments" class="comment-icon">';
+                        echo '<span>' . $article['comments'] . '</span>';
+                        echo '</span>';
+                        
+                        echo '<div class="article-actions">';
+                        echo '<button class="save-btn"><img src="save-icon.svg" alt="Save"></button>';
+                        echo '<button class="more-btn"><img src="more-icon.svg" alt="More"></button>';
+                        echo '</div>';
+                        
+                        echo '</div>'; // End article-meta
+                        echo '</div>'; // End article-content
+                        
+                        echo '<div class="article-image">';
+                        echo '<img src="' . $article['image'] . '" alt="' . $article['title'] . '">';
+                        echo '</div>';
+                        
+                        echo '</div>'; // End article
+                    }
+                    ?>
+                </div>
             </div>
-        <?php else: ?>
-            <p>No blog posts available.</p>
-        <?php endif; ?>
-    </div>
-</main>
-
-<?php include './templates/footer.php'; ?>
+            
+            <?php include 'sidebar.php'; ?>
+        </div>
+    </main>
+</body>
+</html>
