@@ -1,0 +1,3 @@
+<div>
+    My posts
+</div>

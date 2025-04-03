@@ -13,16 +13,48 @@
         <div class="container">
             <div class="content">
                 <div class="tabs">
-                    <a href="#" class="tab active">Posts</a>
-                    <a href="#" class="tab">My Posts</a>
-                    <a href="#" class="tab">Users</a>
-                    <a href="#" class="tab">Topics</a>
-                    <a href="#" class="tab">Contact Us</a>
+                    <?php
+                    // Parse the current tab from URL
+                    $currentTab = 'posts'; // Default
+                    if (preg_match('/tab=([^&]+)/', $_SERVER['REQUEST_URI'], $matches)) {
+                        $currentTab = $matches[1];
+                    }
+                    
+                    $tabs = [
+                        'posts' => 'Posts',
+                        'my-posts' => 'My Posts', 
+                        'users' => 'Users',
+                        'topics' => 'Topics',
+                        'contact' => 'Contact Us'
+                    ];
+                    
+                    foreach ($tabs as $tabId => $tabTitle): ?>
+                        <a href="/home/tab=<?= $tabId ?>" 
+                           class="tab <?= $currentTab === $tabId ? 'active' : '' ?>">
+                            <?= htmlspecialchars($tabTitle) ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
                 
                  <div class="search-results">
-                    <!-- Show base on the tab -->
-                    <?php include __DIR__ . '/../templates/posts.php'; ?>
+                 <?php
+                    switch ($currentTab) {
+                        case 'my-posts':
+                            include __DIR__ . '/../templates/my-posts.php';
+                            break;
+                        case 'users':
+                            include __DIR__ . '/../templates/users.php';
+                            break;
+                        case 'topics':
+                            include __DIR__ . '/../templates/topics.php';
+                            break;
+                        case 'contact':
+                            include __DIR__ . '/../templates/contact.php';
+                            break;
+                        default:
+                            include __DIR__ . '/../templates/posts.php';
+                    }
+                    ?>
                 </div>   
             </div>
             <?php include __DIR__ . '/../templates/sidebar.php'; ?>

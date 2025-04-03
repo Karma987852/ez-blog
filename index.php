@@ -1,13 +1,25 @@
 <?php
-$request_uri = trim($_SERVER['REQUEST_URI'], '/');
+$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$query = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
+$viewDir = '/src/views/';
+$controllerDir = '/src/controllers/';
 
-$page = $request_uri === '' ? 'home' : $request_uri;
+if (str_starts_with($request, '/home')) {
+    require __DIR__ . $viewDir . 'home.php';
+    exit;
+}
 
-$allowed_pages = ['login', 'register', 'dashboard'];
+switch ($request) {
+    case '/':
+        require __DIR__ . $viewDir . 'home.php';
+        break;
 
-if (in_array($page, $allowed_pages) && file_exists("./src/views/{$page}.php")) {
-    require "./src/views/{$page}.php";
-} else {
-    require "./src/views/home.php";
+    case '/home':
+        require __DIR__ . $viewDir . 'home.php';
+        break;
+
+    default:
+        http_response_code(404);
+        require __DIR__ . $viewDir . '404.php';
 }
 ?>
