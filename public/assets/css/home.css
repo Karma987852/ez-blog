@@ -279,24 +279,18 @@
     margin-bottom: 16px;
   }
   
-  .topic-tags {
+  .profile {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 8px;
-  }
-  
-  .topic-tag {
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 100px;
     padding: 8px 16px;
     font-size: 14px;
   }
-  
-  .see-all {
-    margin-top: 16px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.6);
-    display: block;
+
+  .profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
   }
   
   .people-list {

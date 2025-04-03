@@ -1,59 +1,54 @@
 <div class="sidebar">
-                <div class="sidebar-section">
-                    <h3>Topics matching c</h3>
-                    <div class="topic-tags">
-                        <?php
-                        $topics = ['C', 'Cryptocurrency', 'Crypto', 'Culture', 'Creativity', 'Covid-19'];
-                        foreach ($topics as $topic) {
-                            echo '<a href="#" class="topic-tag">' . $topic . '</a>';
-                        }
-                        ?>
-                        <a href="#" class="see-all">See all</a>
-                    </div>
-                </div>
+    <div class="sidebar-section">
+        <h3>Profile</h3>
+        <div class="profile">
+            <img src="../../public/assets/img/profile.jpg" />    
+            <p>Username</p> 
+            <p>Motivated Ruby on Rails Developer eager to expand my knowledge and enhance my skills for continuous personal and professional growth.</p>
+        </div>
+    </div>
                 
-                <div class="sidebar-section">
-                    <h3>People matching c</h3>
-                    <div class="people-list">
-                        <?php
-                        $people = [
-                            [
-                                'name' => 'Coinbase',
-                                'description' => 'Our mission is to increase economic freedom in the...',
-                                'avatar' => 'coinbase-avatar.jpg',
-                                'verified' => false
-                            ],
-                            [
-                                'name' => 'Fast Company',
-                                'description' => 'Official Medium account for the Fast Company business...',
-                                'avatar' => 'fastcompany-avatar.jpg',
-                                'verified' => false
-                            ],
-                            [
-                                'name' => 'Cory Doctorow',
-                                'description' => 'Writer, blogger, activist. Blog: https://pluralistic.net; Mailing...',
-                                'avatar' => 'cory-avatar.jpg',
-                                'verified' => true
-                            ]
-                        ];
+    <div class="sidebar-section">
+        <h3>Top Contributors</h3>
+        <div class="people-list">
+            <?php
+                $people = [
+                   [
+                    'name' => 'Coinbase',
+                    'description' => 'Our mission is to increase economic freedom in the...',
+                    'avatar' => 'coinbase-avatar.jpg',
+                    'verified' => false
+                    ],
+                    [
+                    'name' => 'Fast Company',
+                    'description' => 'Official Medium account for the Fast Company business...',
+                    'avatar' => 'fastcompany-avatar.jpg',
+                    'verified' => false
+                    ],
+                    [
+                    'name' => 'Cory Doctorow',
+                    'description' => 'Writer, blogger, activist. Blog: https://pluralistic.net; Mailing...',
+                    'avatar' => 'cory-avatar.jpg',
+                    'verified' => true
+                    ]
+                ];
 
-                        foreach ($people as $person) {
-                            echo '<div class="person">';
-                            echo '<div class="person-info">';
-                            echo '<img src="' . $person['avatar'] . '" alt="' . $person['name'] . '" class="person-avatar">';
-                            echo '<div class="person-details">';
-                            echo '<div class="person-name">' . $person['name'];
-                            if ($person['verified']) {
-                                echo ' <img src="verified-icon.svg" alt="Verified" class="verified-icon">';
-                            }
-                            echo '</div>';
-                            echo '<div class="person-description">' . $person['description'] . '</div>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '<button class="follow-btn">Follow</button>';
-                            echo '</div>';
-                        }
-                        ?>
+                foreach ($people as $person): ?>
+                    <div class="person">
+                        <div class="person-info">
+                            <img src="../../public/assets/img/profile.jpg" 
+                                alt="<?= htmlspecialchars($person['name']) ?>" 
+                                class="person-avatar">
+                            <div class="person-details">
+                                <div class="person-name">
+                                    <?= htmlspecialchars($person['name']) ?>
+                                </div>
+                                <div class="person-description"><?= htmlspecialchars($person['description']) ?></div>
+                            </div>
+                        </div>
+                        <button class="follow-btn">View</button>
                     </div>
-                </div>
-            </div>
+                <?php endforeach; ?>
+        </div>
+    </div>
+</div>
