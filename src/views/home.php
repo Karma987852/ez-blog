@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medium</title>
+    <title>BlogSphere</title>
     <link rel="stylesheet" href="../../public/assets/css/home.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 <body>
-    <?php include 'header.php'; ?>
+    <?php include __DIR__ . '/../templates/header.php'; ?>
     <main>
         <div class="container">
             <div class="content">
-                <h1 class="results-heading">Results for c</h1>
-                <i class="fa-solid fa-house"></i>
-                
                 <div class="tabs">
                     <a href="#" class="tab active">Stories</a>
                     <a href="#" class="tab">People</a>
@@ -25,7 +22,6 @@
                 
                 <div class="search-results">
                     <?php
-                    // Sample data for search results
                     $articles = [
                         [
                             'project' => 'In The Sunhead Project',
@@ -105,7 +101,7 @@
                 </div>
             </div>
             
-            <?php include 'sidebar.php'; ?>
+            <?php include __DIR__ . '/../templates/sidebar.php'; ?>
         </div>
     </main>
 </body>
