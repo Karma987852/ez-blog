@@ -188,10 +188,9 @@
     font-size: 14px;
   }
   
-  .project-icon,
-  .author-avatar {
-    width: 20px;
-    height: 20px;
+  .profile-icon{
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     margin-right: 8px;
   }
@@ -202,7 +201,7 @@
     margin-bottom: 8px;
   }
   
-  .article-excerpt {
+  .article-des {
     font-size: 16px;
     color: rgba(0, 0, 0, 0.6);
     margin-bottom: 12px;
@@ -229,14 +228,6 @@
     display: flex;
     align-items: center;
     margin-right: 16px;
-  }
-  
-  .clap-icon,
-  .comment-icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
-    opacity: 0.5;
   }
   
   .article-actions {
