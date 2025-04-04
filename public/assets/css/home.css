@@ -396,5 +396,64 @@
       font-size: 32px;
     }
   }
-  
-  
+
+.users-class-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.users-class-user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.users-class-user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.users-class-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.users-class-user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.users-class-user-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+}
+
+.users-class-user-bio {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    max-width: 500px;
+}
+
+.users-class-follow-btn {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 100px;
+    padding: 10px 20p;
+    font-size: 16px;
+    background-color: white;
+    cursor: pointer;
+    border: none;
+}
+
+.users-class-follow-btn:hover {
+    background-color: #007a0e;
+}
