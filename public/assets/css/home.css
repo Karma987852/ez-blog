@@ -140,7 +140,7 @@
   .tabs {
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
   
   .tab {
@@ -398,16 +398,18 @@
   }
 
 .users-class-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .users-class-user-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #e6e6e6;
 }
 
@@ -447,13 +449,32 @@
 .users-class-follow-btn {
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 100px;
-    padding: 10px 20p;
+    padding: 8px 16px;
     font-size: 16px;
     background-color: white;
     cursor: pointer;
-    border: none;
 }
 
 .users-class-follow-btn:hover {
-    background-color: #007a0e;
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.topics-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 800px;
+}
+.topics-tag {
+  background-color: #f0f0f0;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: inline-block;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.topics-tag:hover {
+  background-color: #e0e0e0;
 }
