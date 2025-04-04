@@ -39,6 +39,26 @@
             'dislikes' => '12',
             'comments' => '34',
             'image' => 'post1.jpeg'
+        ],
+        [
+            'author' => 'N\'Delamiko Bey',
+            'title' => 'Captureland: A Measured Meditation',
+            'description' => '"Carry we go home, Carry we go home. And bring we gone a east. Cause man a rasta man. And rasta nuh live pon no capture land."...',
+            'date' => 'Jan 11, 2030',
+            'likes' => '1.6K',
+            'dislikes' => '12',
+            'comments' => '34',
+            'image' => 'post1.jpeg'
+        ],
+        [
+            'author' => 'N\'Delamiko Bey',
+            'title' => 'Captureland: A Measured Meditation',
+            'description' => '"Carry we go home, Carry we go home. And bring we gone a east. Cause man a rasta man. And rasta nuh live pon no capture land."...',
+            'date' => 'Jan 11, 2030',
+            'likes' => '1.6K',
+            'dislikes' => '12',
+            'comments' => '34',
+            'image' => 'post1.jpeg'
         ]
     ];
 
