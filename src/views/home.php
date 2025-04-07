@@ -10,16 +10,34 @@
 <body>
     <?php include __DIR__ . '/../templates/header.php'; ?>
     <main>
+        <?php
+            $currentDialog = '';
+            if (preg_match('/dialog=([^&]+)/', $_SERVER['REQUEST_URI'], $matches)) {
+                $currentDialog = $matches[1];
+            } 
+            
+            $currentTab = 'posts';
+            if (preg_match('/tab=([^&]+)/', $_SERVER['REQUEST_URI'], $matches)) {
+                $currentTab = $matches[1];
+            }
+        ?>
+        
+        <div class="dialog-container" id="dialog-container" style="<?= $currentDialog ? 'display: block;' : 'display: none;' ?>">
+            <?php
+                switch ($currentDialog) {
+                    case 'login':
+                        include __DIR__ . '/../views/login.php';
+                        break;
+                    default:
+                        // No dialog or unknown dialog
+                }
+            ?>
+        </div>
+
         <div class="container">
             <div class="content">
                 <div class="tabs">
                     <?php
-                    // Parse the current tab from URL
-                    $currentTab = 'posts'; // Default
-                    if (preg_match('/tab=([^&]+)/', $_SERVER['REQUEST_URI'], $matches)) {
-                        $currentTab = $matches[1];
-                    }
-                    
                     $tabs = [
                         'posts' => 'Posts',
                         'my-posts' => 'My Posts', 
@@ -36,26 +54,32 @@
                     <?php endforeach; ?>
                 </div>
                 
-                 <div class="search-results">
-                 <?php
-                    switch ($currentTab) {
-                        case 'my-posts':
-                            include __DIR__ . '/../templates/my-posts.php';
-                            break;
-                        case 'users':
-                            include __DIR__ . '/../templates/users.php';
-                            break;
-                        case 'topics':
-                            include __DIR__ . '/../templates/topics.php';
-                            break;
-                        case 'contact':
-                            include __DIR__ . '/../templates/contact.php';
-                            break;
-                        default:
-                            include __DIR__ . '/../templates/posts.php';
-                    }
+                <div class="search-results">
+                    <?php
+                        switch ($currentTab) {
+                            case 'posts':
+                                include __DIR__ . '/../templates/posts.php';
+                                break;
+                            case 'my-posts':
+                                include __DIR__ . '/../templates/my-posts.php';
+                                break;
+                            case 'users':
+                                include __DIR__ . '/../templates/users.php';
+                                break;
+                            case 'topics':
+                                include __DIR__ . '/../templates/topics.php';
+                                break;
+                            case 'contact':
+                                include __DIR__ . '/../templates/contact.php';
+                                break;
+                            case 'login':
+                                include __DIR__ . '/../views/login.php';
+                                break;
+                            default:
+                                include __DIR__ . '/../views/404.php';
+                        }
                     ?>
-                </div>   
+                </div>
             </div>
             <?php include __DIR__ . '/../templates/sidebar.php'; ?>
         </div>
