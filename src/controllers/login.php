@@ -15,9 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate input
     if (empty($email) || empty($password)) {
-        $_SESSION['message'] = "❌ Please fill in all fields!";
-        $_SESSION['message_type'] = 'error';
-        header('Location: /home?dialog=login');
+        echo json_encode([
+            'success' => false,
+            'message' => "❌ Please fill in all fields!"
+        ]);
         exit;
     }
 
@@ -28,17 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch();
         
         if (!$user) {
-            $_SESSION['message'] = "❌ Invalid email or password!";
-            $_SESSION['message_type'] = 'error';
-            header('Location: /home?dialog=login');
+            echo json_encode([
+                'success' => false,
+                'message' => "❌ Invalid email or password!"
+            ]);
             exit;
         }
 
         // Verify password
         if (!password_verify($password, $user['password'])) {
-            $_SESSION['message'] = "❌ Invalid email or password!";
-            $_SESSION['message_type'] = 'error';
-            header('Location: /home?dialog=login');
+            echo json_encode([
+                'success' => false,
+                'message' => "❌ Invalid email or password!"
+            ]);
             exit;
         }
 
@@ -48,22 +51,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['email'] = $user['email'];
         $_SESSION['fullname'] = $user['fullname'];
         
-        // Set success message
-        $_SESSION['message'] = "✅ Login successful!";
-        $_SESSION['message_type'] = 'success';
-        
-        // Redirect to dashboard
-        header('Location: /home');
+        echo json_encode([
+            'success' => true,
+            'message' => "✅ Login successful!",
+            'redirect' => '/home'
+        ]);
         exit;
     } catch (PDOException $e) {
-        $_SESSION['message'] = "❌ Database error: " . $e->getMessage();
-        $_SESSION['message_type'] = 'error';
-        header('Location: /home?dialog=login');
+        echo json_encode([
+            'success' => false,
+            'message' => "❌ Database error: " . $e->getMessage()
+        ]);
         exit;
     } catch (Exception $e) {
-        $_SESSION['message'] = "❌ Error: " . $e->getMessage();
-        $_SESSION['message_type'] = 'error';
-        header('Location: /home?dialog=login');
+        echo json_encode([
+            'success' => false,
+            'message' => "❌ Error: " . $e->getMessage()
+        ]);
         exit;
     }
 }

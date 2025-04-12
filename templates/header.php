@@ -11,7 +11,7 @@
     <nav class="navbar">
         <!-- Logo Section -->
         <div class="logo">
-            <a href="index.php">
+            <a href="/">
                 <img src="public/assets/img/logo.png" alt="BlogSphere Logo">
             </a>
         </div>
@@ -22,9 +22,30 @@
             <button type="submit">🔍</button>
         </div>
 
-        <!-- Login Button Section -->
+        <!-- Login/Write Button Section -->
         <div class="login">
-            <a href="login" class="btn">Login</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="/write" class="btn">Write</a>
+                <a href="/profile" class="btn">Profile</a>
+                <a href="/logout" class="btn">Logout</a>
+            <?php else: ?>
+                <a href="/home?dialog=login" class="btn">Login</a>
+                <a href="/home?dialog=register" class="btn">Register</a>
+            <?php endif; ?>
         </div>
     </nav>
 </header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.querySelector('.search-bar button');
+    const searchInput = document.querySelector('.search-bar input');
+
+    searchButton.addEventListener('click', function() {
+        const searchTerm = searchInput.value;
+        if (searchTerm) {
+            window.location.href = `/search?q=${encodeURIComponent(searchTerm)}`;
+        }
+    });
+});
+</script>
