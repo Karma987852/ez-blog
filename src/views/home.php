@@ -28,6 +28,9 @@
                     case 'login':
                         include __DIR__ . '/../views/login.php';
                         break;
+                    case 'register':
+                        include __DIR__ . '/../views/register.php';
+                        break;
                     default:
                         // No dialog or unknown dialog
                 }

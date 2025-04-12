@@ -14,7 +14,7 @@
                 <i class="bi bi-pencil-square" style="font-size: 1.3rem; margin-right: 10px"></i>
                 Write
             </a>
-            <a href="/home/dialog=login" class="login-btn">
+            <a href="/home?dialog=login" class="login-btn">
                 <i class="bi bi-box-arrow-in-right"></i> Login
             </a>
         </div>

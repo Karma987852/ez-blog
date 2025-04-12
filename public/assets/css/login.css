@@ -116,6 +116,24 @@
     border-color: #0a56c7;
 }
 
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-icon {
+    color: #666;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.close-icon:hover {
+    color: #0C68F4;
+}
+
 /* Add responsive design */
 @media (max-width: 480px) {
     .login-container {
