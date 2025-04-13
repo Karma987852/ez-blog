@@ -6,7 +6,7 @@ class Post {
     public $id;
     public $title;
     public $content;
-    public $author_id;
+    public $user_id;
     public $category_id;
     public $created_at;
     public $updated_at;
@@ -21,18 +21,43 @@ class Post {
                     p.id,
                     p.title,
                     p.content,
-                    p.author_id,
+                    p.user_id,
                     p.category_id,
                     p.created_at,
                     p.updated_at,
                     u.username as author_name,
                     c.name as category_name
                 FROM " . $this->table . " p
-                LEFT JOIN users u ON p.author_id = u.id
+                LEFT JOIN users u ON p.user_id = u.id
                 LEFT JOIN categories c ON p.category_id = c.id
                 ORDER BY p.created_at DESC";
 
         $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    // Get Posts by User ID
+    public function readByUserId($userId) {
+        $query = "SELECT 
+                    p.id,
+                    p.title,
+                    p.content,
+                    p.user_id,
+                    p.category_id,
+                    p.created_at,
+                    p.updated_at,
+                    u.username as author_name,
+                    c.name as category_name
+                FROM " . $this->table . " p
+                LEFT JOIN users u ON p.user_id = u.id
+                LEFT JOIN categories c ON p.category_id = c.id
+                WHERE p.user_id = :user_id
+                ORDER BY p.created_at DESC";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
 
         return $stmt;
@@ -44,14 +69,14 @@ class Post {
                     p.id,
                     p.title,
                     p.content,
-                    p.author_id,
+                    p.user_id,
                     p.category_id,
                     p.created_at,
                     p.updated_at,
                     u.username as author_name,
                     c.name as category_name
                 FROM " . $this->table . " p
-                LEFT JOIN users u ON p.author_id = u.id
+                LEFT JOIN users u ON p.user_id = u.id
                 LEFT JOIN categories c ON p.category_id = c.id
                 WHERE p.id = ?
                 LIMIT 0,1";

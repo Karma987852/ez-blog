@@ -1,5 +1,5 @@
 <?php
-require './config/database.php';
+require_once __DIR__ . '/../config/database.php';
 
 if (!$conn) {
     die("❌ Database connection failed: Connection is null.");
