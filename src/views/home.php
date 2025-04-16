@@ -34,6 +34,9 @@
                     case 'user':
                         include __DIR__ . '/../templates/user.php';
                         break;
+                    case 'createPost':
+                        include __DIR__ . '/../templates/create-post.php';
+                        break;
                     default:
                         // No dialog or unknown dialog
                 }

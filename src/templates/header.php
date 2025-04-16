@@ -18,7 +18,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </form>
         </div>
         <div class="header-actions">
-            <a href="/write" onclick="if(!window.isLoggedIn) { window.location.href='/home?dialog=login'; return false; }" class="write-btn">
+            <a href="/home?dialog=createPost" onclick="if(!window.isLoggedIn) { window.location.href='/home?dialog=login'; return false; }" class="write-btn">
                 <i class="bi bi-pencil-square" style="font-size: 1.3rem; margin-right: 10px"></i>
                 Write
             </a>
