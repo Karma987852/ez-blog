@@ -35,6 +35,7 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <img src="../../public/assets/img/profile.jpg" alt="Profile Picture" class="profile-avatar" />
             <p class="profile-name"><?= htmlspecialchars($user_data['username']) ?></p>
             <p class="profile-email"><?= htmlspecialchars($user_data['email']) ?></p>
+            <p class="profile-email"><?= htmlspecialchars($user_data['bio']) ?></p>
             <div class="profile-stats">
                 <?php
                 $post = new Post($conn);
