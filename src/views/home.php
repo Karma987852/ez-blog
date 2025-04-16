@@ -31,6 +31,9 @@
                     case 'register':
                         include __DIR__ . '/../views/register.php';
                         break;
+                    case 'user':
+                        include __DIR__ . '/../templates/user.php';
+                        break;
                     default:
                         // No dialog or unknown dialog
                 }

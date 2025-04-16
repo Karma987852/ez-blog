@@ -47,7 +47,8 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </div>
-    
+    <?php endif; ?>
+
     <div class="sidebar-section">
         <h3>Top Contributors</h3>
         <div class="people-list">
@@ -66,12 +67,13 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <button class="view-btn" onclick="window.location.href='/user/<?= $contributor['id'] ?>'">View</button>
+                    <a href="/home?dialog=user" class="view-btn" >
+                        View
+                    </a>
                 </div>
             <?php endforeach; ?>
         </div>
     </div>
-    <?php endif; ?>
 </div>
 
 <style>

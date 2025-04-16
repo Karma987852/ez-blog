@@ -6,6 +6,7 @@ class User {
     public $id;
     public $username;
     public $email;
+    public $bio;
     public $password;
     public $created_at;
 

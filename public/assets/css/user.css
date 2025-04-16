@@ -1,0 +1,91 @@
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 0px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Profile Content Styles */
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4CAF50;
+    margin-bottom: 15px;
+}
+
+.profile-header h2 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.email {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.profile-body {
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+.bio-section h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.bio-section p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.meta-section {
+    font-size: 14px;
+    color: #666;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.meta-section p {
+    margin-bottom: 5px;
+}
