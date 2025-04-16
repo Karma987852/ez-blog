@@ -5,7 +5,7 @@ require_once __DIR__ . '/../models/Post.php';
 // Check if user is logged in
 session_start();
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login.php');
+    header('Location: /home?dialog=login');
     exit();
 }
 
