@@ -8,6 +8,7 @@ class Post {
     public $content;
     public $user_id;
     public $category_id;
+    public $img_url;
     public $created_at;
     public $updated_at;
 
@@ -21,6 +22,7 @@ class Post {
                     p.id,
                     p.title,
                     p.content,
+                    p.img_url,
                     p.user_id,
                     p.category_id,
                     p.created_at,

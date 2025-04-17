@@ -38,15 +38,10 @@ try {
             <div class="alert error"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
-        <form id="createPostForm">
+        <form id="createPostForm" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" id="title" name="title" required maxlength="255" value="<?php echo htmlspecialchars($_POST['title'] ?? ''); ?>">
-            </div>
-            
-            <div class="form-group">
-                <label for="content">Content</label>
-                <textarea id="content" name="content" rows="10" required><?php echo htmlspecialchars($_POST['content'] ?? ''); ?></textarea>
             </div>
 
             <div class="form-group">
@@ -60,6 +55,16 @@ try {
                         </option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" rows="10" required><?php echo htmlspecialchars($_POST['content'] ?? ''); ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Attach Image (Optional)</label>
+                <input type="file" id="image" name="image" accept="image/*">
             </div>
             
             <button type="submit" class="submit-btn">Create Post</button>

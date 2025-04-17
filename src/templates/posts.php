@@ -190,10 +190,10 @@ function formatNumber($number) {
             </div>
             
             <div class="article-image">
-                <?php if (isset($post['image_path'])): ?>
-                    <img src="../../public/uploads/<?= htmlspecialchars($post['image_path']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
+                <?php if (isset($post['img_url'])): ?>
+                    <img src="../public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
                 <?php else: ?>
-                    <img src="../../public/assets/img/default-post.jpg" alt="Default post image">
+                    <img src="../../../public/uploads/post1.jpeg" alt="Default post image">
                 <?php endif; ?>
             </div>
         </div>

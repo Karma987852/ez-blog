@@ -1,2 +1,5 @@
 ALTER TABLE users
 ADD COLUMN bio TEXT;
+
+ALTER TABLE blog_posts
+ADD COLUMN img_ur VARCHAR(255);
