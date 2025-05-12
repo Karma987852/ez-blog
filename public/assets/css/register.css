@@ -23,6 +23,9 @@
     text-align: center;
     animation: fadeIn 0.5s ease-in-out;
     position: relative;
+    margin: 20px 0; /* Add margin top/bottom */
+    max-height: 90vh; /* Limit height */
+    overflow-y: auto; /* Enable scrolling inside container if needed */
 }
 
 @keyframes fadeIn {
