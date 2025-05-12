@@ -47,6 +47,13 @@ class Post {
         return $stmt->fetchAll(PDO::FETCH_COLUMN, 0); // Fetch only the title column
     }
 
+    public function delete() {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE id = :id';
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        return $stmt->execute();
+    }
+
     // Get Posts by User ID
     public function readByUserId($userId) {
         $query = "SELECT 
@@ -98,10 +105,11 @@ class Post {
 
         $this->title = $row['title'];
         $this->content = $row['content'];
-        $this->author_id = $row['author_id'];
+        $this->user_id = $row['user_id'];
         $this->category_id = $row['category_id'];
         $this->created_at = $row['created_at'];
         $this->updated_at = $row['updated_at'];
+        return $row;
     }
 
     // Create Post
@@ -156,19 +164,6 @@ class Post {
         $stmt->bindParam(":content", $this->content);
         $stmt->bindParam(":category_id", $this->category_id);
         $stmt->bindParam(":id", $this->id);
-
-        if($stmt->execute()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    // Delete Post
-    public function delete() {
-        $query = "DELETE FROM " . $this->table . " WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
 
         if($stmt->execute()) {
             return true;

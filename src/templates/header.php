@@ -32,7 +32,7 @@ if (isset($_GET['logout'])) {
             </a>
             <?php if ($isLoggedIn): ?>
                 <div class="user-menu">
-                    <a href="/logout" class="logout-btn">
+                    <a href="?logout=1" class="logout-btn">
                         <i class="bi bi-box-arrow-right" style="font-size: 1.3rem"></i> Logout
                     </a>
                      <a href="/profile" class="profile-link">
