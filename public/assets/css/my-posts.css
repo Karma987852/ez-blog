@@ -1,0 +1,122 @@
+.my-post-container{
+    margin: 0 0;
+    padding: 0px 0px;
+    display: flex;
+    gap: 64px;
+  }
+
+
+.my-post-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.post-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.post-content {
+    padding: 1.5rem;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    color: #222;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.post-excerpt {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.post-meta {
+    color: #777;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-meta span {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.post-actions {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-more {
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-more:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-edit {
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-edit:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-delete {
+    background-color: #dc2626;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #b91c1c;
+}
+
+.empty-state {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    color: #475569;
+}
+
+.empty-state a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.empty-state a:hover {
+    text-decoration: underline;
+}

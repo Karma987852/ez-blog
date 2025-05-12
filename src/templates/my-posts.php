@@ -16,25 +16,28 @@ $post = new Post($db);
 $result = $post->readByUserId($_SESSION['user_id']);
 ?>
 
-<div class="container my-4">
+<link rel="stylesheet" href="/public/assets/css/my-posts.css">
+
+<div class="my-post-container">
     <h2 class="mb-4">My Blog Posts</h2>
     
     <?php if($result->rowCount() > 0): ?>
         <div class="row">
             <?php while($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
-                <div class="col-md-6 mb-4">
+                <div class="col-md-6 mb-5">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo htmlspecialchars($row['title']); ?></h5>
                             <p class="card-text"><?php echo substr(htmlspecialchars($row['content']), 0, 150) . '...'; ?></p>
                             <div class="text-muted small">
                                 <span>Category: <?php echo htmlspecialchars($row['category_name']); ?></span><br>
-                                <span>Posted: <?php echo date('F j, Y', strtotime($row['created_at'])); ?></span>
+                                <span>Posted: <?php echo date('F j, Y', strtotime($row['created_at'])); ?></span><br><br>
                             </div>
                         </div>
                         <div class="card-footer bg-transparent">
-                            <a href="/post.php?id=<?php echo $row['id']; ?>" class="btn btn-primary btn-sm">Read More</a>
-                            <a href="/edit-post.php?id=<?php echo $row['id']; ?>" class="btn btn-secondary btn-sm">Edit</a>
+                            <a href="/post.php?id=<?php echo $row['id']; ?>" class="btn btn-more btn-sm">Read More</a>
+                            <a href="/edit-post.php?id=<?php echo $row['id']; ?>" class="btn btn-edit btn-sm">Edit</a>
+                            <a href="/edit-post.php?id=<?php echo $row['id']; ?>" class="btn btn-delete btn-sm">Delete</a>
                         </div>
                     </div>
                 </div>
