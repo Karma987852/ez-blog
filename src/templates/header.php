@@ -1,6 +1,14 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
+
+// Handle logout if requested
+if (isset($_GET['logout'])) {
+    session_unset();     // Clear all session variables
+    session_destroy();   // Destroy the session
+    header("Location: " . strtok($_SERVER['REQUEST_URI'], '?')); // Redirect to same page without query params
+    exit();
+}
 ?>
 <script>
     window.isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
