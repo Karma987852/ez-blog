@@ -13,7 +13,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <form action="" method="GET">
                 <div class="search-box">
                     <i class="bi bi-search"></i>
-                    <input type="text" placeholder="Search Blog Sphere">
+                    <input type="text" placeholder="Search...">
                 </div>
             </form>
         </div>
@@ -24,11 +24,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
             </a>
             <?php if ($isLoggedIn): ?>
                 <div class="user-menu">
-                    <a href="/profile" class="profile-link">
-                        <i class="bi bi-person-circle"></i>
-                    </a>
                     <a href="/logout" class="logout-btn">
-                        <i class="bi bi-box-arrow-right"></i> Logout
+                        <i class="bi bi-box-arrow-right" style="font-size: 1.3rem"></i> Logout
+                    </a>
+                     <a href="/profile" class="profile-link">
+                        <i class="bi bi-person-circle" style="font-size: 1.9rem"></i>
                     </a>
                 </div>
             <?php else: ?>
