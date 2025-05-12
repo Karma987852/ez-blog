@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
     $fullname = $_POST['fullname'] ?? '';
+    $bio = $_POST['bio'] ?? '';
 
     // Validate input
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($fullname)) {
@@ -50,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert user
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password, fullname) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password, fullname, bio) VALUES (?, ?, ?, ?, ?)");
         
-        if ($stmt->execute([$username, $email, $hashed_password, $fullname])) {
+        if ($stmt->execute([$username, $email, $hashed_password, $fullname, $bio])) {
             echo json_encode([
                 'success' => true,
                 'message' => "✅ Registration successful! Please login.",

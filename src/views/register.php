@@ -23,6 +23,10 @@
                 <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="3" placeholder="Tell us about yourself..." required></textarea>
+            </div>
+            <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
