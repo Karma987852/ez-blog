@@ -40,6 +40,13 @@ class Post {
         return $stmt;
     }
 
+    public function getAllTitles() {
+        $query = "SELECT DISTINCT title, created_at FROM " . $this->table . " ORDER BY created_at DESC LIMIT 20";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN, 0); // Fetch only the title column
+    }
+
     // Get Posts by User ID
     public function readByUserId($userId) {
         $query = "SELECT 

@@ -1,33 +1,19 @@
-<div class="topics-container">
-        <?php
-        $names = [
-            "Sonam",
-            "Sonam Kapoor",
-            "Sonam Bajwa",
-            "Sonam Wangchuk",
-            "Sonamarg",
-            "Sonambulismo",
-            "Sonamhotphotoshoot",
-            "Sonamhotphotos",
-            "Sonambralessphotosshoot",
-            "Sonam Makeup Studio",
-            "Sonam Kapoor Hot Images",
-            "Sonam Kapoor Bikni Photos",
-            "Sonam Kapoor Hot Photos",
-            "Sonam Kapoor Bikni Images",
-            "Sonam Gupta",
-            "Sonam Bajwa Biography",
-            "Sonamwangchuck",
-            "Sonamasoori",
-            "Sonámbula",
-            "Sonamlotus",
-            "Sonamiller",
-            "Sonambulo",
-            "Sonambient"
-        ];
+<?php
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/Post.php';
 
-        foreach ($names as $name) {
-            echo '<div class="topics-tag">' . htmlspecialchars($name) . '</div>';
+$post = new Post($conn);
+$titles = $post->getAllTitles();
+?>
+
+<div class="topics-container">
+    <?php
+    if (empty($titles)) {
+        echo '<p>No topics found</p>';
+    } else {
+        foreach ($titles as $title) {
+            echo '<div class="topics-tag">' . htmlspecialchars($title) . '</div>';
         }
-        ?>
-    </div>
+    }
+    ?>
+</div>
