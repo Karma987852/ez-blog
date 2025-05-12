@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
         $stmt->bindParam(':img_url', $imageName);
 
         if ($stmt->execute()) {
-            echo json_encode(['success' => "Blog post created successfully!"]);
+            echo json_encode(['success' => true, 'message' => 'Post created successfully!']);
         } else {
             throw new Exception('Failed to create post.');
         }

@@ -37,7 +37,7 @@ $result = $post->readByUserId($_SESSION['user_id']);
                         </div>
                         <div class="card-footer bg-transparent">
                             <a href="/post.php?id=<?= $row['id'] ?>" class="btn btn-more btn-sm">Read More</a>
-                            <a href="/edit-post.php?id=<?= $row['id'] ?>" class="btn btn-edit btn-sm">Edit</a>
+                            <a href="/home?dialog=createPost&edit=<?= $row['id'] ?>" class="btn btn-edit btn-sm">Edit</a>
                             <button class="btn btn-delete btn-sm delete-btn" data-post-id="<?= $row['id'] ?>">Delete</button>
                         </div>
                     </div>
