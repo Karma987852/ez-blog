@@ -1,11 +1,26 @@
 <?php
-$user = [
-    "username" => "Sonam Dorji",
-    "email" => "sonam@gmail.com",
-    "bio" => "A sample bio can vary depending on its purpose, but generally, it should introduce the individual, highlight their relevant skills and experience, and optionally include personal interests or goals.",
-    "created_at" => "24-12-2024",
-    "profile_img" => "../../public/assets/img/profile.jpg"
-];
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../models/User.php';
+
+// Get user ID from URL
+$userId = $_GET['id'] ?? null;
+
+if ($userId) {
+    $userModel = new User($conn);
+    $userModel->id = $userId;
+    $result = $userModel->read_single();
+    $user = $result->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$user) {
+        // Handle case where user doesn't exist
+        header('Location: /home');
+        exit;
+    }
+} else {
+    // Handle case where no ID is provided
+    header('Location: /home');
+    exit;
+}
 ?>
 
 <link rel="stylesheet" href="/public/assets/css/user.css">
@@ -14,17 +29,17 @@ $user = [
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="profile-header">
-                <img src="<?php echo $user['profile_img']; ?>" alt="Profile Image" class="profile-img">
-                <h2><?php echo $user['username']; ?></h2>
-                <p class="email"><?php echo $user['email']; ?></p>
+                <img src="<?php echo $user['profile_img'] ?? '../../public/assets/img/profile.jpg'; ?>" alt="Profile Image" class="profile-img">
+                <h2><?php echo htmlspecialchars($user['fullname']); ?></h2>
+                <p class="email"><?php echo htmlspecialchars($user['email']); ?></p>
             </div>
             <div class="profile-body">
                 <div class="bio-section">
                     <h3>About</h3>
-                    <p><?php echo $user['bio']; ?></p>
+                    <p><?php echo htmlspecialchars($user['bio'] ?? 'No bio available'); ?></p>
                 </div>
                 <div class="meta-section">
-                    <p><strong>Member since:</strong> <?php echo $user['created_at']; ?></p>
+                    <p><strong>Member since:</strong> <?php echo date('d-m-Y', strtotime($user['created_at'])); ?></p>
                 </div>
             </div>
         </div>
@@ -32,19 +47,16 @@ $user = [
 </div>
 
 <script>
-    // Get the modal
-    const modal = document.getElementById("profileModal");
-    const span = document.getElementsByClassName("close-btn")[0];
-
-    // When the user clicks on (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
+    // Close modal functionality
+    document.querySelector('.close-btn').onclick = function() {
+        window.location.href = '/home'; // Redirect back to home
     }
 
-    // When the user clicks anywhere outside of the modal, close it
+    // Close when clicking outside
     window.onclick = function(event) {
+        const modal = document.getElementById("profileModal");
         if (event.target == modal) {
-            modal.style.display = "none";
+            window.location.href = '/home';
         }
     }
 </script>

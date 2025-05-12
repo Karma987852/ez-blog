@@ -5,6 +5,7 @@ class User {
 
     public $id;
     public $username;
+    public $fullname;
     public $email;
     public $bio;
     public $password;
@@ -24,9 +25,9 @@ class User {
 
     // Get Single User
     public function read_single() {
-        $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
+        $query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(':id', $this->id);
         $stmt->execute();
         return $stmt;
     }

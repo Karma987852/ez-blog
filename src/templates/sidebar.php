@@ -68,7 +68,7 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <a href="/home?dialog=user" class="view-btn" >
+                    <a href="/home?dialog=user&id=<?= $contributor['id'] ?>" class="view-btn">
                         View
                     </a>
                 </div>

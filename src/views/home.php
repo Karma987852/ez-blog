@@ -34,6 +34,14 @@
                     case 'user':
                         include __DIR__ . '/../templates/user.php';
                         break;
+                    case 'user':
+                        if (isset($_GET['id'])) {
+                            include __DIR__ . '/../templates/user.php';
+                        } else {
+                            header('Location: /home');
+                            exit;
+                        }
+                        break;
                     case 'createPost':
                         include __DIR__ . '/../templates/create-post.php';
                         break;
