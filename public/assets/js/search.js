@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const searchForm = document.getElementById('searchForm');
+    const searchForm = document.querySelector('#search');
     const searchInput = searchForm.querySelector('input[name="q"]');
-    const searchResults = document.getElementById('searchResults');
+    const searchResults = document.querySelector('#search-results');
     let searchTimeout;
 
     searchInput.addEventListener('input', function() {
@@ -12,28 +12,40 @@ document.addEventListener('DOMContentLoaded', function() {
             searchResults.style.display = 'none';
             return;
         }
-
-        // Add a small delay to prevent too many requests
         searchTimeout = setTimeout(() => {
             fetch(`/src/controllers/search-api.php?q=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.length > 0) {
-                        const html = data.map(post => `
-                            <div class="search-result-item">
-                                <a href="/post?id=${post.id}">
-                                    <h4>${post.title}</h4>
-                                    <p class="post-meta">by ${post.username}</p>
-                                </a>
-                            </div>
-                        `).join('');
-                        
-                        searchResults.innerHTML = html;
-                        searchResults.style.display = 'block';
-                    } else {
-                        searchResults.innerHTML = '<div class="no-results">No results found</div>';
-                        searchResults.style.display = 'block';
+                    let html = '';
+                    
+                    if (Array.isArray(data)) {
+                        html += '<div class="search-section"><h4>Posts</h4>';
+                        data.forEach(post => {
+                            html += `<a href="/post?id=${post.id}">${post.title}</a>`;
+                        });
+                        html += '</div>';
+                    } else if (data.posts && data.posts.length > 0) {
+                        html += '<div class="search-section"><h4>Posts</h4>';
+                        data.posts.forEach(post => {
+                            html += `<a href="/post?id=${post.id}">${post.title}</a>`;
+                        });
+                        html += '</div>';
                     }
+
+                    if (data.users && data.users.length > 0) {
+                        html += '<div class="search-section"><h4>Users</h4>';
+                        data.users.forEach(user => {
+                            html += `<a href="/profile?id=${user.id}">${user.username}</a>`;
+                        });
+                        html += '</div>';
+                    }
+
+                    if (html === '') {
+                        html = '<div class="no-results">No results found</div>';
+                    }
+
+                    searchResults.innerHTML = html;
+                    searchResults.style.display = 'block';
                 })
                 .catch(error => {
                     console.error('Search error:', error);
@@ -42,9 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     });
 
-    // Close search results when clicking outside
     document.addEventListener('click', function(e) {
-        if (!searchForm.contains(e.target)) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
             searchResults.style.display = 'none';
         }
     });
