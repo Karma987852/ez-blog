@@ -52,8 +52,8 @@
     gap: 5px;
     font-size: 14px;
     background-color: rgb(241, 95, 108);
-    padding: 0.3rem 0.9rem;
-    border-radius: 50px;
+    padding: 0.5rem 0.9rem;
+    border-radius: 20px;
     color: white;
   }
 
@@ -91,9 +91,20 @@
     margin-right: 16px;
     font-size: 14px;
     background-color: rgb(76, 76, 255);
-    padding: 0.3rem 0.9rem;
-    border-radius: 50px;
+    padding: 0.5rem 0.9rem;
+    border-radius: 20px;
     color: white;
+  }
+
+  .header-login-btn{
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+    font-size: 14px;
+    background-color: rgba(9, 255, 83, 0.747);
+    padding: 0.5rem 0.9rem;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
   }
   
   .container {
