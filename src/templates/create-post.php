@@ -139,6 +139,9 @@ document.getElementById('createPostForm').addEventListener('submit', async funct
             
         const response = await fetch(endpoint, {
             method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
             body: formData
         });
 
@@ -162,7 +165,6 @@ document.getElementById('createPostForm').addEventListener('submit', async funct
         }
     } catch (error) {
         console.error('Error:', error);
-        messageBox.innerHTML = `<div class="alert error">Failed to submit: ${error.message}</div>`;
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = formData.has('post_id') ? 'Update Post' : 'Create Post';
