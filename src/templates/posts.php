@@ -59,9 +59,13 @@ function handleLike(postId, type) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            const countElement = type === 'like' ? 
-                document.querySelector(`[data-post-id="${postId}"] .likes-count`) :
-                document.querySelector(`[data-post-id="${postId}"] .dislikes-count`);
+            const articleElement = document.querySelector(`[data-post-id="${postId}"]`).closest('.article');
+            const likesCountEl = articleElement.querySelector('.likes-count');
+            const dislikesCountEl = articleElement.querySelector('.dislikes-count');
+
+            if (likesCountEl) likesCountEl.textContent = data.likes_count;
+            if (dislikesCountEl) dislikesCountEl.textContent = data.dislikes_count;
+                
             if (countElement) {
                 countElement.textContent = data.count;
             }
