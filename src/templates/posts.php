@@ -61,40 +61,11 @@ function showCommentModal(postId) {
     modal.style.display = 'block';
     modal.setAttribute('data-post-id', postId);
     
-    // Clear previous comments and show loading state
-    const commentsContainer = modal.querySelector('.comments-container');
-    commentsContainer.innerHTML = '<p>Loading comments...</p>';
+    // Clear any previous error messages
+    modal.querySelector('.error-message').style.display = 'none';
     
-    // Fetch comments via AJAX
-    fetch(`/src/controllers/get-comments.php?post_id=${postId}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log("data", data);
-            commentsContainer.innerHTML = '';
-            
-            if (data.success && data.comments.length > 0) {
-                data.comments.forEach(comment => {
-                    const commentItem = document.createElement('div');
-                    commentItem.className = 'comment-item';
-                    commentItem.innerHTML = `
-                        <img src="${comment.profile_pic || '/public/assets/img/profile.jpg'}" 
-                             alt="Profile" class="comment-user-avatar">
-                        <div class="comment-content">
-                            <div class="comment-user-name">${comment.username}</div>
-                            <div class="comment-text">${comment.comment}</div>
-                            <div class="comment-date">${formatCommentDate(comment.created_at)}</div>
-                        </div>
-                    `;
-                    commentsContainer.appendChild(commentItem);
-                });
-            } else {
-                commentsContainer.innerHTML = '<p style="text-align: center; color: #777;">No comments yet. Be the first to comment!</p>';
-            }
-        })
-        .catch(error => {
-            console.error('Error loading comments:', error);
-            commentsContainer.innerHTML = '<p style="color: #f00;">Error loading comments. Please try again.</p>';
-        });
+    // Fetch comments
+    fetchComments(postId);
 }
 
 // Helper function to format comment date
@@ -114,53 +85,6 @@ function formatCommentDate(dateString) {
         year: 'numeric'
     });
 }
-
-// Updated comment submission handler
-document.getElementById('comment-form').onsubmit = function(e) {
-    e.preventDefault();
-    
-    const modal = document.getElementById('comment-modal');
-    const postId = modal.getAttribute('data-post-id');
-    const content = modal.querySelector('.comment-textarea').value.trim();
-    
-    if (!content) {
-        modal.querySelector('.error-message').textContent = 'Please enter a comment';
-        return;
-    }
-    
-    modal.querySelector('.error-message').textContent = '';
-    
-    fetch('/api/add-comment.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ post_id: postId, content: content })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Update comments count
-            const countElement = document.querySelector(`[data-post-id="${postId}"] .comments-count`);
-            if (countElement) {
-                const currentCount = parseInt(countElement.textContent) || 0;
-                countElement.textContent = currentCount + 1;
-            }
-            
-            // Clear textarea
-            modal.querySelector('.comment-textarea').value = '';
-            
-            // Reload comments to show the new one
-            showCommentModal(postId);
-        } else {
-            modal.querySelector('.error-message').textContent = data.message || 'Failed to post comment';
-        }
-    })
-    .catch(error => {
-        console.error('Error posting comment:', error);
-        modal.querySelector('.error-message').textContent = 'Failed to post comment. Please try again.';
-    });
-};
 
 function handleLike(postId, type) {
     if (!isLoggedIn) {
@@ -200,12 +124,63 @@ window.onclick = function(event) {
     }
 }
 
-// Handle comment submission
-document.getElementById('comment-form').onsubmit = function() {
+function fetchComments(postId) {
+    const modal = document.getElementById('comment-modal');
+    const commentsContainer = modal.querySelector('.comments-container');
+    
+    // Show loading state
+    commentsContainer.innerHTML = '<p>Loading comments...</p>';
+    
+    fetch(`/src/controllers/get-comments.php?post_id=${postId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched comments:", data);
+            commentsContainer.innerHTML = '';
+            
+            if (data.success && data.comments.length > 0) {
+                data.comments.forEach(comment => {
+                    const commentItem = document.createElement('div');
+                    commentItem.className = 'comment-item';
+                    commentItem.innerHTML = `
+                        <img src="${comment.profile_pic || '/public/assets/img/profile.jpg'}" 
+                             alt="Profile" class="comment-user-avatar">
+                        <div class="comment-content">
+                            <div class="comment-user-name">${comment.username}</div>
+                            <div class="comment-text">${comment.comment}</div>
+                            <div class="comment-date">${formatCommentDate(comment.created_at)}</div>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(commentItem);
+                    
+                    // Scroll to the newly added comment
+                    commentItem.scrollIntoView({ behavior: 'smooth' });
+                });
+            } else {
+                commentsContainer.innerHTML = '<p style="text-align: center; color: #777;">No comments yet. Be the first to comment!</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading comments:', error);
+            commentsContainer.innerHTML = '<p style="color: #f00;">Error loading comments. Please try again.</p>';
+        });
+}
+
+// Updated comment submission handler
+document.getElementById('comment-form').onsubmit = function(e) {
+    e.preventDefault();
+    
     const modal = document.getElementById('comment-modal');
     const postId = modal.getAttribute('data-post-id');
-    const content = modal.querySelector('.comment-textarea').value;
-
+    const content = modal.querySelector('.comment-textarea').value.trim();
+    
+    if (!content) {
+        modal.querySelector('.error-message').textContent = 'Please enter a comment';
+        modal.querySelector('.error-message').style.display = 'block';
+        return;
+    }
+    
+    modal.querySelector('.error-message').style.display = 'none';
+    
     fetch('/src/controllers/add-comment.php', {
         method: 'POST',
         headers: {
@@ -216,17 +191,29 @@ document.getElementById('comment-form').onsubmit = function() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Update comments count on the post
             const countElement = document.querySelector(`[data-post-id="${postId}"] .comments-count`);
             if (countElement) {
-                countElement.textContent = data.count;
+                const currentCount = parseInt(countElement.textContent) || 0;
+                countElement.textContent = currentCount + 1;
             }
-            modal.style.display = 'none';
+            
+            // Clear textarea
             modal.querySelector('.comment-textarea').value = '';
+            
+            // Refresh comments list
+            fetchComments(postId);
         } else {
-            modal.querySelector('.error-message').textContent = data.message;
+            modal.querySelector('.error-message').textContent = data.message || 'Failed to post comment';
+            modal.querySelector('.error-message').style.display = 'block';
         }
+    })
+    .catch(error => {
+        console.error('Error posting comment:', error);
+        modal.querySelector('.error-message').textContent = 'Failed to post comment. Please try again.';
+        modal.querySelector('.error-message').style.display = 'block';
     });
-}
+};
 </script>
 
 <?php
