@@ -167,7 +167,6 @@ document.getElementById('comment-form').onsubmit = function(e) {
 </script>
 <?php
 
-
 $post = new Post($conn);
 $result = $post->read();
 $posts = $result->fetchAll(PDO::FETCH_ASSOC);

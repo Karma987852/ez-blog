@@ -225,3 +225,11 @@
         padding: 8px 15px;
     }
 }
+
+.like-btn, .dislike-btn, .comment-btn {
+    cursor: pointer;                                                                                                                 
+}
+
+.like-btn:hover, .dislike-btn:hover, .comment-btn:hover {  
+    opacity: 0.8;                                                                                                                     
+} 
