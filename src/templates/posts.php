@@ -4,44 +4,7 @@ require_once __DIR__ . '/../models/Post.php';
 ?>
 
 <link rel="stylesheet" href="/public/assets/css/modal.css">
-<style>
-.like-btn, .dislike-btn, .comment-btn {
-    cursor: pointer;
-}
-
-.like-btn:hover, .dislike-btn:hover, .comment-btn:hover {
-    opacity: 0.8;
-}
-</style>
-
-
-<div id="comment-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h3 class="modal-title">Comments</h3>
-        <div class="error-message"></div>
-        
-        <!-- Scrollable Comments Container -->
-        <div class="comments-scroll-container">
-            <div class="comments-container">
-                <!-- Comments will be loaded here dynamically -->
-            </div>
-        </div>
-        
-        <!-- Fixed Comment Form -->
-        <form id="comment-form" onsubmit="return false;" class="add-comment-form">
-            <div class="comment-input-container">
-                <?php if ($isLoggedIn): ?>
-                    <img src="<?= htmlspecialchars($_SESSION['profile_pic'] ?? '/public/assets/img/profile.jpg') ?>" 
-                         alt="Profile" class="comment-user-avatar">
-                <?php endif; ?>
-                <textarea class="comment-textarea" placeholder="Write your comment here..." required></textarea>
-            </div>
-            <br>
-            <button type="submit" class="submit-comment">Post Comment</button>
-        </form>
-    </div>
-</div>
+<?php include 'comment-modal.php'; ?>
 
 <?php
 session_start();
@@ -50,7 +13,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <script>
 const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
 
-// Updated showCommentModal function
 function showCommentModal(postId) {
     if (!isLoggedIn) {
         window.location.href = '/home?dialog=login';
@@ -60,15 +22,10 @@ function showCommentModal(postId) {
     const modal = document.getElementById('comment-modal');
     modal.style.display = 'block';
     modal.setAttribute('data-post-id', postId);
-    
-    // Clear any previous error messages
     modal.querySelector('.error-message').style.display = 'none';
-    
-    // Fetch comments
     fetchComments(postId);
 }
 
-// Helper function to format comment date
 function formatCommentDate(dateString) {
     const date = new Date(dateString);
     const now = new Date();
@@ -91,7 +48,7 @@ function handleLike(postId, type) {
         window.location.href = '/home?dialog=login';
         return;
     }
-    // Call the existing like handling function
+
     fetch(`/src/controllers/like-post.php`, {
         method: 'POST',
         headers: {
@@ -112,7 +69,6 @@ function handleLike(postId, type) {
     });
 }
 
-// Close modal when clicking the close button or outside the modal
 document.querySelector('.close-modal').onclick = function() {
     document.getElementById('comment-modal').style.display = 'none';
 }
@@ -128,7 +84,6 @@ function fetchComments(postId) {
     const modal = document.getElementById('comment-modal');
     const commentsContainer = modal.querySelector('.comments-container');
     
-    // Show loading state
     commentsContainer.innerHTML = '<p>Loading comments...</p>';
     
     fetch(`/src/controllers/get-comments.php?post_id=${postId}`)
@@ -151,8 +106,7 @@ function fetchComments(postId) {
                         </div>
                     `;
                     commentsContainer.appendChild(commentItem);
-                    
-                    // Scroll to the newly added comment
+
                     commentItem.scrollIntoView({ behavior: 'smooth' });
                 });
             } else {
@@ -165,7 +119,6 @@ function fetchComments(postId) {
         });
 }
 
-// Updated comment submission handler
 document.getElementById('comment-form').onsubmit = function(e) {
     e.preventDefault();
     
@@ -191,17 +144,14 @@ document.getElementById('comment-form').onsubmit = function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Update comments count on the post
             const countElement = document.querySelector(`[data-post-id="${postId}"] .comments-count`);
             if (countElement) {
                 const currentCount = parseInt(countElement.textContent) || 0;
                 countElement.textContent = currentCount + 1;
             }
             
-            // Clear textarea
             modal.querySelector('.comment-textarea').value = '';
             
-            // Refresh comments list
             fetchComments(postId);
         } else {
             modal.querySelector('.error-message').textContent = data.message || 'Failed to post comment';
@@ -215,15 +165,13 @@ document.getElementById('comment-form').onsubmit = function(e) {
     });
 };
 </script>
-
 <?php
 
-// Initialize Post model
+
 $post = new Post($conn);
 $result = $post->read();
 $posts = $result->fetchAll(PDO::FETCH_ASSOC);
 
-// Function to count likes/dislikes
 function getLikesCount($conn, $post_id, $type) {
     $query = "SELECT COUNT(*) as count FROM likes WHERE blog_post_id = ? AND type = ?";
     $stmt = $conn->prepare($query);
@@ -231,7 +179,6 @@ function getLikesCount($conn, $post_id, $type) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
 
-// Function to count comments
 function getCommentsCount($conn, $post_id) {
     $query = "SELECT COUNT(*) as count FROM comments WHERE blog_post_id = ?";
     $stmt = $conn->prepare($query);
@@ -239,7 +186,6 @@ function getCommentsCount($conn, $post_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
 
-// Function to format numbers
 function formatNumber($number) {
     if ($number >= 1000) {
         return round($number/1000, 1) . 'K';
