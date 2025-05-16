@@ -8,8 +8,13 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
+    
+    if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest') {
+        echo json_encode(['success' => false, 'error' => 'Invalid request']);
+        exit();
+    }
 
     try {
         $database = new Database();
@@ -25,9 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
             throw new Exception('Title and content are required');
         }
 
-        // Handle file upload
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '../../public/uploads/';
+            $uploadDir = __DIR__ . '/../../public/uploads/';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
@@ -59,9 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
             throw new Exception('Failed to create post.');
         }
     } catch (PDOException $e) {
-        echo json_encode(['error' => "Database error: " . $e->getMessage()]);
+        echo json_encode(['success' => false, 'error' => "Database error: " . $e->getMessage()]);
     } catch (Exception $e) {
-        echo json_encode(['error' => $e->getMessage()]);
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
 }
 ?>

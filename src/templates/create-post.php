@@ -135,7 +135,7 @@ document.getElementById('createPostForm').addEventListener('submit', async funct
     try {
         const endpoint = formData.has('post_id') ? 
             '/src/controllers/update-post.php' : 
-            '/src/controllers/create-posts.php';
+            '/src/controllers/create-post.php';
             
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -144,7 +144,15 @@ document.getElementById('createPostForm').addEventListener('submit', async funct
 
         console.log("end point", endpoint);
         console.log("response", response);
-        const result = await response.json();
+        const responseText = await response.text();
+        let result;
+        try {
+            result = JSON.parse(responseText);
+        } catch (e) {
+            console.error('Failed to parse JSON:', responseText);
+            toastr.error('Invalid server response');
+            return;
+        }
         
         if (result.success) {
             toastr.success(`✅ ${result.message || 'Success!'}`);
@@ -162,7 +170,7 @@ document.getElementById('createPostForm').addEventListener('submit', async funct
         }
     } catch (error) {
         console.error('Error:', error);
-        messageBox.innerHTML = `<div class="alert error">Failed to submit: ${error.message}</div>`;
+        toastr.error(`Failed to submit: ${error.message}`);
     } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = formData.has('post_id') ? 'Update Post' : 'Create Post';
