@@ -112,6 +112,24 @@ class Post {
         return $row;
     }
 
+    public function getPostComments($postId) {
+        $query = "SELECT 
+                    c.id,
+                    c.comment,
+                    c.created_at,
+                    c.username
+                  FROM comments c
+                  JOIN users u ON c.user_id = u.id
+                  WHERE c.blog_post_id = :post_id
+                  ORDER BY c.created_at DESC";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':post_id', $postId);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Create Post
     public function create() {
         $query = "INSERT INTO " . $this->table . " 

@@ -4,28 +4,7 @@ require_once __DIR__ . '/../models/Post.php';
 ?>
 
 <link rel="stylesheet" href="/public/assets/css/modal.css">
-<style>
-.like-btn, .dislike-btn, .comment-btn {
-    cursor: pointer;
-}
-
-.like-btn:hover, .dislike-btn:hover, .comment-btn:hover {
-    opacity: 0.8;
-}
-</style>
-
-<!-- Comment Modal -->
-<div id="comment-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h3 class="modal-title">Add Comment</h3>
-        <div class="error-message"></div>
-        <form id="comment-form" onsubmit="return false;">
-            <textarea class="comment-textarea" placeholder="Write your comment here..."></textarea>
-            <button type="submit" class="submit-comment">Post Comment</button>
-        </form>
-    </div>
-</div>
+<?php include 'comment-modal.php'; ?>
 
 <?php
 session_start();
@@ -34,12 +13,42 @@ $isLoggedIn = isset($_SESSION['user_id']);
 <script>
 const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
 
+function showCommentModal(postId) {
+    if (!isLoggedIn) {
+        window.location.href = '/home?dialog=login';
+        return;
+    }
+    
+    const modal = document.getElementById('comment-modal');
+    modal.style.display = 'block';
+    modal.setAttribute('data-post-id', postId);
+    modal.querySelector('.error-message').style.display = 'none';
+    fetchComments(postId);
+}
+
+function formatCommentDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
+    
+    if (diffInSeconds < 60) return 'Just now';
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+    if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} days ago`;
+    
+    return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        year: 'numeric'
+    });
+}
+
 function handleLike(postId, type) {
     if (!isLoggedIn) {
         window.location.href = '/home?dialog=login';
         return;
     }
-    // Call the existing like handling function
+
     fetch(`/src/controllers/like-post.php`, {
         method: 'POST',
         headers: {
@@ -50,9 +59,13 @@ function handleLike(postId, type) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            const countElement = type === 'like' ? 
-                document.querySelector(`[data-post-id="${postId}"] .likes-count`) :
-                document.querySelector(`[data-post-id="${postId}"] .dislikes-count`);
+            const articleElement = document.querySelector(`[data-post-id="${postId}"]`).closest('.article');
+            const likesCountEl = articleElement.querySelector('.likes-count');
+            const dislikesCountEl = articleElement.querySelector('.dislikes-count');
+
+            if (likesCountEl) likesCountEl.textContent = data.likes_count;
+            if (dislikesCountEl) dislikesCountEl.textContent = data.dislikes_count;
+                
             if (countElement) {
                 countElement.textContent = data.count;
             }
@@ -60,17 +73,6 @@ function handleLike(postId, type) {
     });
 }
 
-function showCommentModal(postId) {
-    if (!isLoggedIn) {
-        window.location.href = '/home?dialog=login';
-        return;
-    }
-    const modal = document.getElementById('comment-modal');
-    modal.style.display = 'block';
-    modal.setAttribute('data-post-id', postId);
-}
-
-// Close modal when clicking the close button or outside the modal
 document.querySelector('.close-modal').onclick = function() {
     document.getElementById('comment-modal').style.display = 'none';
 }
@@ -82,12 +84,60 @@ window.onclick = function(event) {
     }
 }
 
-// Handle comment submission
-document.getElementById('comment-form').onsubmit = function() {
+function fetchComments(postId) {
+    const modal = document.getElementById('comment-modal');
+    const commentsContainer = modal.querySelector('.comments-container');
+    
+    commentsContainer.innerHTML = '<p>Loading comments...</p>';
+    
+    fetch(`/src/controllers/get-comments.php?post_id=${postId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched comments:", data);
+            commentsContainer.innerHTML = '';
+            
+            if (data.success && data.comments.length > 0) {
+                data.comments.forEach(comment => {
+                    const commentItem = document.createElement('div');
+                    commentItem.className = 'comment-item';
+                    commentItem.innerHTML = `
+                        <img src="${comment.profile_pic || '/public/assets/img/profile.jpg'}" 
+                             alt="Profile" class="comment-user-avatar">
+                        <div class="comment-content">
+                            <div class="comment-user-name">${comment.username}</div>
+                            <div class="comment-text">${comment.comment}</div>
+                            <div class="comment-date">${formatCommentDate(comment.created_at)}</div>
+                        </div>
+                    `;
+                    commentsContainer.appendChild(commentItem);
+
+                    commentItem.scrollIntoView({ behavior: 'smooth' });
+                });
+            } else {
+                commentsContainer.innerHTML = '<p style="text-align: center; color: #777;">No comments yet. Be the first to comment!</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading comments:', error);
+            commentsContainer.innerHTML = '<p style="color: #f00;">Error loading comments. Please try again.</p>';
+        });
+}
+
+document.getElementById('comment-form').onsubmit = function(e) {
+    e.preventDefault();
+    
     const modal = document.getElementById('comment-modal');
     const postId = modal.getAttribute('data-post-id');
-    const content = modal.querySelector('.comment-textarea').value;
-
+    const content = modal.querySelector('.comment-textarea').value.trim();
+    
+    if (!content) {
+        modal.querySelector('.error-message').textContent = 'Please enter a comment';
+        modal.querySelector('.error-message').style.display = 'block';
+        return;
+    }
+    
+    modal.querySelector('.error-message').style.display = 'none';
+    
     fetch('/src/controllers/add-comment.php', {
         method: 'POST',
         headers: {
@@ -100,25 +150,31 @@ document.getElementById('comment-form').onsubmit = function() {
         if (data.success) {
             const countElement = document.querySelector(`[data-post-id="${postId}"] .comments-count`);
             if (countElement) {
-                countElement.textContent = data.count;
+                const currentCount = parseInt(countElement.textContent) || 0;
+                countElement.textContent = currentCount + 1;
             }
-            modal.style.display = 'none';
+            
             modal.querySelector('.comment-textarea').value = '';
+            
+            fetchComments(postId);
         } else {
-            modal.querySelector('.error-message').textContent = data.message;
+            modal.querySelector('.error-message').textContent = data.message || 'Failed to post comment';
+            modal.querySelector('.error-message').style.display = 'block';
         }
+    })
+    .catch(error => {
+        console.error('Error posting comment:', error);
+        modal.querySelector('.error-message').textContent = 'Failed to post comment. Please try again.';
+        modal.querySelector('.error-message').style.display = 'block';
     });
-}
+};
 </script>
-
 <?php
 
-// Initialize Post model
 $post = new Post($conn);
 $result = $post->read();
 $posts = $result->fetchAll(PDO::FETCH_ASSOC);
 
-// Function to count likes/dislikes
 function getLikesCount($conn, $post_id, $type) {
     $query = "SELECT COUNT(*) as count FROM likes WHERE blog_post_id = ? AND type = ?";
     $stmt = $conn->prepare($query);
@@ -126,7 +182,6 @@ function getLikesCount($conn, $post_id, $type) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
 
-// Function to count comments
 function getCommentsCount($conn, $post_id) {
     $query = "SELECT COUNT(*) as count FROM comments WHERE blog_post_id = ?";
     $stmt = $conn->prepare($query);
@@ -134,7 +189,6 @@ function getCommentsCount($conn, $post_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
 
-// Function to format numbers
 function formatNumber($number) {
     if ($number >= 1000) {
         return round($number/1000, 1) . 'K';

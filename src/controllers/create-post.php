@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config/database.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('HTTP/1.1 401 Unauthorized');
+    header('Content-Type: application/json');
     echo json_encode(['error' => 'Unauthorized']);
     exit();
 }
@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Post created successfully!']);
+            exit();
         } else {
             throw new Exception('Failed to create post.');
         }
