@@ -46,7 +46,7 @@ try {
 }
 ?>
 
-<link rel="stylesheet" href="/public/assets/css/post.css">
+<link rel="stylesheet" href="/public/assets/css/create-post.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>

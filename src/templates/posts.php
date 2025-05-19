@@ -209,7 +209,7 @@ function formatNumber($number) {
                     <span><?= htmlspecialchars($post['author_name']) ?></span>
                 </div>
                 
-                <h2 class="article-title"><?= htmlspecialchars($post['title']) ?></h2>
+                <a href="/post?id=<?= $post['id']?>"><h2 class="article-title"><?= htmlspecialchars($post['title']) ?></h2></a>
                 <p class="article-des"><?= htmlspecialchars(substr($post['content'], 0, 200)) . '...' ?></p>
                 
                 <div class="article-meta">

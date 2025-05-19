@@ -19,9 +19,7 @@ $result = $post->readByUserId($_SESSION['user_id']);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<div class="my-post-container">
-    <h2 class="mb-4">My Blog Posts</h2>
-    
+<div class="my-post-container">    
     <?php if($result->rowCount() > 0): ?>
         <div class="row">
             <?php while($row = $result->fetch(PDO::FETCH_ASSOC)): ?>
