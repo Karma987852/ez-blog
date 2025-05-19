@@ -81,15 +81,15 @@ FLUSH PRIVILEGES;
 ### 1. Clone the Repository
 Open a terminal and run the following command:
 ```sh
-git clone git@github.com:PrimeRin/blog-sphere.git
-cd blog-sphere
+git clone git@github.com:Karma987852/ez-blog.git
+cd ez-blog
 ```
 
 ### 2. Apply Schema Migrations
 
 To create tables in the database, run:
 ```sh
-mysql -u root -p blog_sphere < database/01_create_users_table.sql
+mysql -u root -p ez_blog < database/01_create_users_table.sql
 ```
 
 You will be prompted to enter the MySQL root password.
