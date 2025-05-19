@@ -38,9 +38,9 @@ if (isset($_GET['logout'])) {
                     <a href="?logout=1" class="logout-btn">
                         <i class="bi bi-box-arrow-right" style="font-size: 0.8rem margin-right: 5px;"></i> Logout
                     </a>
-                     <a href="/profile" class="profile-link">
+                     <!-- <a href="/profile" class="profile-link">
                         <i class="bi bi-person-circle" style="font-size: 1.9rem"></i>
-                    </a>
+                    </a> -->
                 </div>
             <?php else: ?>
                 <a href="/home?dialog=login" class="header-login-btn">

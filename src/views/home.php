@@ -59,8 +59,7 @@
                         'posts' => 'Posts',
                         'my-posts' => 'My Posts', 
                         'users' => 'Users',
-                        'topics' => 'Topics',
-                        'contact' => 'Contact Us'
+                        'topics' => 'Topics'
                     );
                     
                     foreach ($tabs as $tabId => $tabTitle): ?>
