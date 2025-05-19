@@ -1,7 +1,7 @@
-# BlogSphere
+# EZBLOG
 
 ## 📌 Description
-The **BlogSphere** is a web-based application designed to manage and publish blog posts efficiently. It allows users to create, edit, and delete blog posts while storing data in a MySQL database. The backend is built using PHP and MySQL, and the frontend uses HTML, CSS, and JavaScript.
+The **EZBlOG** is a web-based application designed to manage and publish blog posts efficiently. It allows users to create, edit, and delete blog posts while storing data in a MySQL database. The backend is built using PHP and MySQL, and the frontend uses HTML, CSS, and JavaScript.
 
 ## 🚀 Features
 - Create, update, and delete blog posts

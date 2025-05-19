@@ -245,7 +245,7 @@ function formatNumber($number) {
             
             <div class="article-image">
                 <?php if (isset($post['img_url'])): ?>
-                    <img src="../../../src/public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
+                    <img src="/public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
                 <?php else: ?>
                     <img src="../../../public/uploads/post1.jpeg" alt="Default post image">
                 <?php endif; ?>

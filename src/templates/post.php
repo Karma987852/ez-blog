@@ -10,12 +10,12 @@
         <p><em>Published on <?= date('F j, Y', strtotime($post['created_at'])) ?></em></p>
         <p><em>Published by <?= htmlspecialchars($post['username']) ?></em></p>
         <p><em>Category: <?= htmlspecialchars($post['name']) ?></em></p>
-        <?php if (!empty($post['img_url'])): ?>
-            <img src="/public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="Post image">
-        <?php endif; ?>
         <div class="post-content">
             <?= nl2br(htmlspecialchars($post['content'])) ?>
         </div>
+        <?php if (!empty($post['img_url'])): ?>
+            <img src="/public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="Post image">
+        <?php endif; ?>
         <a href="/">← Back to Home</a>
     </div>
 </body>
