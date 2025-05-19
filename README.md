@@ -23,7 +23,7 @@ The **EZBlOG** is a web-based application designed to manage and publish blog po
 
 ## 📂 Project Structure
 ```
-📁 blog_sphere/
+📁 ez_blog/
 ├── 📁 config/          # Database configuration
 ├── 📁 database/        # SQL migration files
 ├── 📁 public/          # Public assets (CSS, JS, images)
