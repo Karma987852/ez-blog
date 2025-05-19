@@ -22,7 +22,7 @@ if (isset($_GET['logout'])) {
             <form action="/src/controllers/search-api.php" method="GET" id="search">
                 <div class="search-box">
                     <i class="bi bi-search"></i>
-                    <input type="text" name="q" placeholder="Search..." autocomplete="off">
+                    <input type="text" name="q" placeholder="Search Post" autocomplete="off">
                     <div id="search-results" class="search-results-dropdown" style="display: none;"></div>
                 </div>
             </form>
