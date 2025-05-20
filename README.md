@@ -74,7 +74,7 @@ FLUSH PRIVILEGES;
 #### In Ubuntu
 1. In Ubuntu, Run the mysql server in the docker
  ```sh
- docker run --name mysql_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=blog_sphere -e MYSQL_USER=blog_user -e MYSQL_PASSWORD=password -p 3306:3306 -v mysql_data:/var/lib/mysql -d mysql:latest 
+ docker run --name mysql_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=ez_blog -e MYSQL_USER=blog_user -e MYSQL_PASSWORD=password -p 3306:3306 -v mysql_data:/var/lib/mysql -d mysql:latest 
  ```
 
 ### Project setup

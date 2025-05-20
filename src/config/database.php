@@ -1,7 +1,7 @@
 <?php
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'blog_sphere');
-define('DB_USER', 'blog_user');
+define('DB_NAME', 'ez_blog');
+define('DB_USER', 'blog_admin');
 define('DB_PASS', 'password');
 define('DB_DSN', "mysql:host=" . DB_HOST . ";port=3306;dbname=" . DB_NAME);
 
