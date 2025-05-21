@@ -1,7 +1,7 @@
 // Function to handle likes and dislikes
 async function handleLike(postId, type) {
     try {
-        const response = await fetch('/src/controllers/like-post.php', {
+        const response = await fetch('/ez-blog/src/controllers/like-post.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ async function handleComment(event) {
     }
 
     try {
-        const response = await fetch('/src/controllers/add-comment.php', {
+        const response = await fetch('/ez-blog/src/controllers/add-comment.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

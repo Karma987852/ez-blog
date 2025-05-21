@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?= htmlspecialchars($post['title']) ?></title>
-    <link rel="stylesheet" href="/public/assets/css/post.css">
+    <title><?= isset($post['title']) ? htmlspecialchars($post['title']) : 'Untitled Post' ?></title>
+    <link rel="stylesheet" href="/ez-blog/public/assets/css/post.css">
 </head>
 <body>
     <div class="post-container">
-        <h1><?= htmlspecialchars($post['title']) ?></h1>
-        <p><em>Published on <?= date('F j, Y', strtotime($post['created_at'])) ?></em></p>
-        <p><em>Published by <?= htmlspecialchars($post['username']) ?></em></p>
-        <p><em>Category: <?= htmlspecialchars($post['name']) ?></em></p>
+        <h1><?= isset($post['title']) ? htmlspecialchars($post['title']) : 'Untitled Post' ?></h1>
+
+        <p><em>Published on 
+            <?php 
+                if (!empty($post['created_at'])) {
+                    echo date('F j, Y', strtotime($post['created_at']));
+                } else {
+                    echo "Unknown date";
+                }
+            ?>
+        </em></p>
+
+        <p><em>Published by <?= isset($post['username']) ? htmlspecialchars($post['username']) : 'Unknown author' ?></em></p>
+
+        <p><em>Category: <?= isset($post['name']) ? htmlspecialchars($post['name']) : 'Uncategorized' ?></em></p>
+
         <div class="post-content">
-            <?= nl2br(htmlspecialchars($post['content'])) ?>
+            <?= isset($post['content']) ? nl2br(htmlspecialchars($post['content'])) : '<em>No content available.</em>' ?>
         </div>
+
         <?php if (!empty($post['img_url'])): ?>
-            <img src="/public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="Post image">
+            <img src="/ez-blog/public/uploads/<?= htmlspecialchars($post['img_url']) ?>" alt="Post image">
         <?php endif; ?>
-        <a href="/">← Back to Home</a>
+
+        <a href="/ez-blog/home">← Back to Home</a>
     </div>
 </body>
 </html>

@@ -1,4 +1,11 @@
 RewriteEngine On
+RewriteBase /ez-blog/
+
+# Allow direct access to files in public directory
+RewriteCond %{REQUEST_URI} ^/ez-blog/public/ [NC]
+RewriteRule ^ - [L]
+
+# Redirect all other requests to index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+RewriteRule ^ index.php [L]

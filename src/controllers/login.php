@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode([
             'success' => true,
             'message' => "✅ Login successful!",
-            'redirect' => '/home'
+            'redirect' => '/ez-blog/home'
         ]);
         exit;
     } catch (PDOException $e) {
@@ -73,6 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // If not a POST request, redirect to home
-header('Location: /home');
+header('Location: /ez-blog/home');
 exit;
 ?>

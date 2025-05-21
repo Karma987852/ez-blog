@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         searchTimeout = setTimeout(() => {
-            fetch(`/src/controllers/search-api.php?q=${encodeURIComponent(query)}`)
+            fetch(`/ez-blog/src/controllers/search-api.php?q=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
                     let html = '';
@@ -21,13 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (Array.isArray(data)) {
                         html += '<div class="search-section"><h4>Posts</h4>';
                         data.forEach(post => {
-                            html += `<a href="/post?id=${post.id}">${post.title}</a>`;
+                            html += `<a href="/ez-blog/post?id=${post.id}">${post.title}</a>`;
                         });
                         html += '</div>';
                     } else if (data.posts && data.posts.length > 0) {
                         html += '<div class="search-section"><h4>Posts</h4>';
                         data.posts.forEach(post => {
-                            html += `<a href="/post?id=${post.id}">${post.title}</a>`;
+                            html += `<a href="/ez-blog/post?id=${post.id}">${post.title}</a>`;
                         });
                         html += '</div>';
                     }

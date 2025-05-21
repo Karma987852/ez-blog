@@ -15,7 +15,7 @@
         <form id="comment-form" onsubmit="return false;" class="add-comment-form">
             <div class="comment-input-container">
                 <?php if ($isLoggedIn): ?>
-                    <img src="<?= htmlspecialchars($_SESSION['profile_pic'] ?? '/public/assets/img/profile.jpg') ?>" 
+                    <img src="<?= htmlspecialchars($_SESSION['profile_pic'] ?? '/ez-blog/public/assets/img/profile.jpg') ?>" 
                          alt="Profile" class="comment-user-avatar">
                 <?php endif; ?>
                 <textarea class="comment-textarea" placeholder="Write your comment here..." required></textarea>

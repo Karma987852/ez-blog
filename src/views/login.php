@@ -1,14 +1,18 @@
-<link rel="stylesheet" href="../../public/assets/css/login.css">
+<!-- Full absolute paths for local CSS/JS -->
+<link rel="stylesheet" href="/ez-blog/public/assets/css/login.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <div class="login-container">
     <div class="close-btn">
-        <a href="/home" class="close-icon">&times;</a>
+        <a href="/ez-blog/home" class="close-icon">&times;</a>
     </div>
-    <h2>Login to BlogSphere</h2>
-    <form id="loginForm" action="../controllers/login.php" method="POST">
+    <h2>Login to EZ Blog</h2>
+    
+    <!-- Full path for login.php -->
+    <form id="loginForm" action="/ez-blog/src/controllers/login.php" method="POST">
         <div class="input-group">
             <input type="email" name="email" placeholder="Email" required>
         </div>
@@ -18,7 +22,7 @@
 
         <div class="button-group">
             <button type="submit" class="login-btn">Login</button>
-            <a href="/home?dialog=register" class="register-btn">Register</a>
+            <a href="/ez-blog/home?dialog=register" class="register-btn">Register</a>
         </div>
     </form>
 </div>
@@ -51,7 +55,7 @@ $(document).ready(function() {
         const formData = $(this).serialize();
 
         $.ajax({
-            url: '/src/controllers/login.php',
+            url: '/ez-blog/src/controllers/login.php',
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -59,7 +63,6 @@ $(document).ready(function() {
                 
                 if (result.success) {
                     toastr.success(result.message);
-                    
                     setTimeout(function() {
                         window.location.href = result.redirect;
                     }, 2000);

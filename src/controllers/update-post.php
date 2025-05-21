@@ -57,7 +57,7 @@ try {
 
     // Handle new image upload
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = __DIR__ . '../../public/uploads/';
+        $uploadDir = __DIR__ . '/ez-blog/public/uploads/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }

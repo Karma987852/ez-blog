@@ -68,6 +68,7 @@
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 20px;
     padding: 8px 16px;
+    border: 1px solid #b1aeae !important;
   }
   
   .search-box input {
@@ -455,8 +456,9 @@
   gap: 10px;
   max-width: 800px;
 }
+
 .topics-tag {
-  background-color: #f0f0f0;
+  background-color: #e0e0e0 !important;
   border-radius: 20px;
   padding: 10px 20px;
   display: inline-block;
@@ -465,6 +467,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
+
 .topics-tag:hover {
-  background-color: #e0e0e0;
+  background-color: #6f6c6c !important;
 }

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode([
                 'success' => true,
                 'message' => "✅ Registration successful! Please login.",
-                'redirect' => '/home?dialog=login'
+                'redirect' => '/ez-blog/home?dialog=login'
             ]);
             exit;
         } else {
@@ -83,6 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // If not a POST request, just show the form
-header('Location: /home?dialog=register');
+header('Location: /ez-blog/home?dialog=register');
 exit;
 ?>

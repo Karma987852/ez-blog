@@ -13,23 +13,23 @@ if ($userId) {
     
     if (!$user) {
         // Handle case where user doesn't exist
-        header('Location: /home');
+        header('Location: /ez-blog/home');
         exit;
     }
 } else {
     // Handle case where no ID is provided
-    header('Location: /home');
+    header('Location: /ez-blog/home');
     exit;
 }
 ?>
 
-<link rel="stylesheet" href="/public/assets/css/user.css">
+<link rel="stylesheet" href="/ez-blog/public/assets/css/user.css">
 <div class="profile-container">        
     <div id="profileModal" class="modal" style="display: block;">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <div class="profile-header">
-                <img src="<?php echo $user['profile_img'] ?? '../../public/assets/img/profile.jpg'; ?>" alt="Profile Image" class="profile-img">
+                <img src="<?php echo $user['profile_img'] ?? '/ez-blog/public/assets/img/profile.jpg'; ?>" alt="Profile Image" class="profile-img">
                 <h2><?php echo htmlspecialchars($user['fullname']); ?></h2>
                 <p class="email"><?php echo htmlspecialchars($user['email']); ?></p>
             </div>
@@ -49,14 +49,14 @@ if ($userId) {
 <script>
     // Close modal functionality
     document.querySelector('.close-btn').onclick = function() {
-        window.location.href = '/home'; // Redirect back to home
+        window.location.href = '/ez-blog/home'; // Redirect back to home
     }
 
     // Close when clicking outside
     window.onclick = function(event) {
         const modal = document.getElementById("profileModal");
         if (event.target == modal) {
-            window.location.href = '/home';
+            window.location.href = '/ez-blog/home';
         }
     }
 </script>

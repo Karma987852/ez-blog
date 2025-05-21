@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../models/Post.php';
 
-session_start();
+// session_start();
 $isLoggedIn = isset($_SESSION['user_id']);
 
 // Get user details if logged in
@@ -32,7 +32,7 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="sidebar-section">
         <h3>My Profile</h3>
         <div class="profile">
-            <img src="../../public/assets/img/profile.jpg" alt="Profile Picture" class="profile-avatar" />
+            <img src="/ez-blog/public/assets/img/profile.jpg" alt="Profile Picture" class="profile-avatar" />
             <p class="profile-name"><?= htmlspecialchars($user_data['username']) ?></p>
             <p class="profile-email"><?= htmlspecialchars($user_data['email']) ?></p>
             <p class="profile-email"><?= htmlspecialchars($user_data['bio']) ?></p>
@@ -56,7 +56,7 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($top_contributors as $contributor): ?>
                 <div class="person">
                     <div class="person-info">
-                        <img src="../../public/assets/img/profile.jpg" 
+                        <img src="/ez-blog/public/assets/img/profile.jpg" 
                             alt="<?= htmlspecialchars($contributor['username']) ?>" 
                             class="person-avatar">
                         <div class="person-details">
@@ -68,7 +68,7 @@ $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <a href="/home?dialog=user&id=<?= $contributor['id'] ?>" class="view-btn">
+                    <a href="/ez-blog/home?dialog=user&id=<?= $contributor['id'] ?>" class="view-btn">
                         View
                     </a>
                 </div>

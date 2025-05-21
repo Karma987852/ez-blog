@@ -2,9 +2,13 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Post.php';
 
-session_start();
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /home?dialog=login');
+    header('Location: /ez-blog/home?dialog=login');
     exit();
 }
 
@@ -14,7 +18,7 @@ $post = new Post($db);
 $result = $post->readByUserId($_SESSION['user_id']);
 ?>
 
-<link rel="stylesheet" href="/public/assets/css/my-posts.css">
+<link rel="stylesheet" href="/ez-blog/public/assets/css/my-posts.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -34,8 +38,8 @@ $result = $post->readByUserId($_SESSION['user_id']);
                             </div>
                         </div>
                         <div class="card-footer bg-transparent">
-                            <a href="/post?id=<?= $row['id'] ?>" class="btn btn-more btn-sm">Read More</a>
-                            <a href="/home?dialog=createPost&edit=<?= $row['id'] ?>" class="btn btn-edit btn-sm">Edit</a>
+                            <a href="/ez-blog/post?id=<?= $row['id'] ?>" class="btn btn-more btn-sm">Read More</a>
+                            <a href="/ez-blog/home?dialog=createPost&edit=<?= $row['id'] ?>" class="btn btn-edit btn-sm">Edit</a>
                             <button class="btn btn-delete btn-sm delete-btn" data-post-id="<?= $row['id'] ?>">Delete</button>
                         </div>
                     </div>
@@ -44,7 +48,7 @@ $result = $post->readByUserId($_SESSION['user_id']);
         </div>
     <?php else: ?>
         <div class="alert alert-info">
-            You haven't created any posts yet. <a href="/create-post.php">Create your first post!</a>
+            You haven't created any posts yet. <a href="/ez-blog/home?dialog=createPost">Create your first post!</a>
         </div>
     <?php endif; ?>
 </div>
@@ -100,14 +104,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle delete confirmation
     confirmBtn.addEventListener('click', function() {
         if (postIdToDelete) {
-            fetch('/src/controllers/delete-post.php', {
+            fetch('/ez-blog/src/controllers/delete-post.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'X-Requested-With': 'XMLHttpRequest'
                 },
                 body: new URLSearchParams({
-                id: postIdToDelete
+                    id: postIdToDelete
                 })
             })
             .then(response => response.json())

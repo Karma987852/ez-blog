@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlogSphere</title>
-    <link rel="stylesheet" href="../../public/assets/css/home.css">
+    <link rel="stylesheet" href="/ez-blog/public/assets/css/home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 <body>
     <?php include __DIR__ . '/../templates/header.php'; ?>
     <main>
         <?php
-            $currentDialog = '';
-            if (preg_match('/dialog=([^&]+)/', $_SERVER['REQUEST_URI'], $matches)) {
-                $currentDialog = $matches[1];
-            } 
             
-            $currentTab = 'posts';
-            if (preg_match('/tab=([^&]+)/', $_SERVER['REQUEST_URI'], $matches)) {
-                $currentTab = $matches[1];
-            }
+            $currentDialog = $_GET['dialog'] ?? '';
+            $currentTab = $_GET['tab'] ?? 'posts';
+            
         ?>
         
         <div class="dialog-container" id="dialog-container" style="<?= $currentDialog ? 'display: block;' : 'display: none;' ?>">
@@ -63,7 +58,7 @@
                     );
                     
                     foreach ($tabs as $tabId => $tabTitle): ?>
-                        <a href="/home/tab=<?= $tabId ?>" 
+                        <a href="/ez-blog/home?tab=<?= $tabId ?>"
                            class="tab <?= $currentTab === $tabId ? 'active' : '' ?>">
                             <?= htmlspecialchars($tabTitle) ?>
                         </a>

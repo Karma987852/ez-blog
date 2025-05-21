@@ -1,14 +1,16 @@
-<link rel="stylesheet" href="../../public/assets/css/register.css">
+<!-- Corrected full absolute paths -->
+<link rel="stylesheet" href="/ez-blog/public/assets/css/register.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <div class="dialog-container" id="dialog-container" style="display: block;">
     <div class="register-container">
         <div class="close-btn">
-            <a href="/home" class="close-icon">&times;</a>
+            <a href="/ez-blog/home" class="close-icon">&times;</a>
         </div>
-        <h2>Register to BlogSphere</h2>
+        <h2>Register to EZ Blog</h2>
         <form id="registerForm" method="POST">
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -35,7 +37,7 @@
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
             <button type="submit" id="registerBtn">Register</button>
-            <p>Already have an account? <a href="/home?dialog=login">Login here</a></p>
+            <p>Already have an account? <a href="/ez-blog/home?dialog=login">Login here</a></p>
         </form>
     </div>
 </div>
@@ -68,7 +70,7 @@ $(document).ready(function() {
         const formData = $(this).serialize();
 
         $.ajax({
-            url: '/src/controllers/register.php',
+            url: '/ez-blog/src/controllers/register.php',
             type: 'POST',
             data: formData,
             success: function(response) {
@@ -76,7 +78,6 @@ $(document).ready(function() {
                 
                 if (result.success) {
                     toastr.success(result.message);
-                    
                     setTimeout(function() {
                         window.location.href = result.redirect;
                     }, 2000);
