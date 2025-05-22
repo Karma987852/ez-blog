@@ -7,7 +7,7 @@ class AuthDialog {
                     <h2>Login Required</h2>
                     <p>Please login to continue</p>
                     <div class="auth-dialog-buttons">
-                        <button onclick="window.location.href='/login'" class="btn-primary">Login</button>
+                        <button onclick="window.location.href='/ez-blog/login'" class="btn-primary">Login</button>
                         <button onclick="authDialog.close()" class="btn-secondary">Cancel</button>
                     </div>
                 </div>

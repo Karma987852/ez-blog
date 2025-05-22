@@ -21,7 +21,7 @@ if (isset($_GET['logout'])) {
         <img src="/ez-blog/public/assets/img/logo.png" class="header-logo">
 
         <div class="search-container" style="position: relative;">
-            <form action="/ez-blog/src/controllers/search-api.php" method="GET" id="search">
+            <form method="GET" id="search">
                 <div class="search-box">
                     <i class="bi bi-search"></i>
                     <input type="text" name="q" placeholder="Search Post By Post Title" autocomplete="off">
