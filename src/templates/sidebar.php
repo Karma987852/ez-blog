@@ -21,7 +21,7 @@ $query = "SELECT u.id, u.username, COUNT(p.id) as post_count
           LEFT JOIN blog_posts p ON u.id = p.user_id 
           GROUP BY u.id 
           ORDER BY post_count DESC 
-          LIMIT 5";
+          LIMIT 3";
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $top_contributors = $stmt->fetchAll(PDO::FETCH_ASSOC);
