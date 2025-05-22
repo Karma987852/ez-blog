@@ -27,7 +27,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <p class="users-class-user-bio"><?= htmlspecialchars($user['bio']) ?></p>
                 </div>
             </div>
-            <a href="/ez-blog/home?dialog=user" class="users-class-view-btn">
+            <a href="/ez-blog/home?dialog=user&id=<?= $user['id'] ?>" class="users-class-view-btn">
               View
             </a>
         </div>
